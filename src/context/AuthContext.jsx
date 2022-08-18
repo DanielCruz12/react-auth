@@ -3,7 +3,10 @@ import { createContext, useContext } from "react";
 export const authContext = createContext();
 
 export const useAuth = () => {
-  const context = useContext(authContext)
+  const context = useContext(authContext);
+  if(!context){
+    throw new console.error("useAuth must be use with an provider");
+  }
   return context;
 }
 
