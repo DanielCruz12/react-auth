@@ -13,7 +13,7 @@ export const useAuth = () => {
 }
 
 export const AuthProvider= ({ children }) => {
-const signUp =  (email, password) => createUserWithEmailAndPassword(auth, email, password)
+const signUp =  (email, password) => createUserWithEmailAndPassword(auth, email, password);
 
 
   return <authContext.Provider value={{signUp}}>{children}</authContext.Provider>;
