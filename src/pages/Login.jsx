@@ -7,16 +7,16 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import swal from 'sweetalert';
 
-const Register = () => {
+const Login = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+  const { login } = useAuth(); 
+
   const navigate = useNavigate();
 
   const [error, setError] = useState();
-
-  const { signUp } = useAuth();
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -26,9 +26,9 @@ const Register = () => {
     e.preventDefault();
     setError("");
     try {
-      await signUp(user.email, user.password);
-      swal("Good job!", "User was created succesfully!", "success", {
-        button: "register!",
+      await login(user.email, user.password);
+      swal("Good job!", "login succesfully!", "success", {
+        button: "login!",
       });
       navigate("/dashboard");
     } catch (error) {
@@ -44,7 +44,11 @@ const Register = () => {
           break;
 
         case "auth/email-already-in-use":
-          setError("El correo ya esta en uso");
+          setError("El correo actual ya esta en uso");
+          break;
+
+        case "auth/user-not-found":
+          setError("Usuario no encontrado");
           break;
 
         case "auth/internal-error":
@@ -107,7 +111,7 @@ const Register = () => {
             <div>
               <img className="mx-auto h-12 w-auto" src={Logo} alt="Workflow" />
               <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-white">
-                Sign Up
+                Sign In
               </h2>
               <p className="mt-2 text-center text-sm text-gray-600">
                 and{" "}
@@ -138,7 +142,7 @@ const Register = () => {
                     autoComplete="email"
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    placeholder="yourEmail@gmail.com"
+                    placeholder="Email address"
                     onChange={handleChange}
                   />
                 </div>
@@ -153,7 +157,7 @@ const Register = () => {
                     autoComplete="current-password"
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                    placeholder="******"
+                    placeholder="Password"
                     onChange={handleChange}
                   />
                 </div>
@@ -196,7 +200,7 @@ const Register = () => {
                       aria-hidden="true"
                     />
                   </span>
-                  Sign in
+                  Login
                 </button>
               </div>
 
@@ -223,4 +227,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
