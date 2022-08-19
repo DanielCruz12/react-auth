@@ -4,8 +4,8 @@ import { BsFacebook } from "react-icons/bs";
 import Logo from "../assets/img/astar-logo.png";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import swal from 'sweetalert';
+import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -107,7 +107,7 @@ const Register = () => {
             <div>
               <img className="mx-auto h-12 w-auto" src={Logo} alt="Workflow" />
               <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-white">
-                Sign Up
+                Registrarse
               </h2>
               <p className="mt-2 text-center text-sm text-gray-600">
                 and{" "}
@@ -196,8 +196,15 @@ const Register = () => {
                       aria-hidden="true"
                     />
                   </span>
-                  Sign in
+                  registrarse
                 </button>
+              </div>
+
+              <div>
+                <Link
+                  to="/login"
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >Iniciar sesión</Link>
               </div>
 
               <div>

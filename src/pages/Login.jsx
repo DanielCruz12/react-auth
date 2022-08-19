@@ -4,7 +4,7 @@ import { BsFacebook } from "react-icons/bs";
 import Logo from "../assets/img/astar-logo.png";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import swal from 'sweetalert';
 
 const Login = () => {
@@ -39,8 +39,8 @@ const Login = () => {
           setError("Correo invalido");
           break;
 
-        case "auth/weak-password":
-          setError("Contraseña débil");
+        case "auth/wrong-password":
+          setError("Contraseña incorrecta");
           break;
 
         case "auth/email-already-in-use":
@@ -111,7 +111,7 @@ const Login = () => {
             <div>
               <img className="mx-auto h-12 w-auto" src={Logo} alt="Workflow" />
               <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-white">
-                Sign In
+                Iniciar sesión
               </h2>
               <p className="mt-2 text-center text-sm text-gray-600">
                 and{" "}
@@ -202,6 +202,13 @@ const Login = () => {
                   </span>
                   Login
                 </button>
+              </div>
+
+              <div>
+                <Link
+                  to="/"
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >Registrarse</Link>
               </div>
 
               <div>
