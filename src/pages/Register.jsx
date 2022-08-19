@@ -30,7 +30,7 @@ const Register = () => {
       swal("Good job!", "User was created succesfully!", "success", {
         button: "register!",
       });
-      navigate("/dashboard");
+      navigate("/");
     } catch (error) {
       console.log(error.code);
 
