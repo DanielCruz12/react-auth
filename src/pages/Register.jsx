@@ -18,6 +18,11 @@ const Register = () => {
 
   const { signUp } = useAuth();
 
+  const handleGoogle = async () => {
+    await googleSignIn();
+    navigate('/');
+  }
+
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
   };
@@ -212,7 +217,7 @@ const Register = () => {
                   <p>or continue with: </p>
                 </div>
                 <div className="flex justify-center pb-3">
-                  <button className="btn btn primary m-2">
+                  <button className="btn btn primary m-2" onClick={handleGoogle}>
                     <a className="mx-auto h-12 w-auto">
                       <FcGoogle />
                     </a>

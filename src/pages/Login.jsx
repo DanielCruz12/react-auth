@@ -12,11 +12,16 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const { login } = useAuth(); 
+  const { login, loginWithGoogle } = useAuth(); 
 
   const navigate = useNavigate();
 
   const [error, setError] = useState();
+
+  const handleGoogle = async () => {
+    await loginWithGoogle();
+    navigate('/');
+  }
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -216,7 +221,7 @@ const Login = () => {
                   <p>or continue with: </p>
                 </div>
                 <div className="flex justify-center pb-3">
-                  <button className="btn btn primary m-2">
+                  <button className="btn btn primary m-2" onClick={handleGoogle}>
                     <a className="mx-auto h-12 w-auto">
                       <FcGoogle />
                     </a>
