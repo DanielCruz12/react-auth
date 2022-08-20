@@ -1,7 +1,7 @@
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
-import Logo from "../assets/img/astar-logo.png";
+import Logo from "../assets/img/logo.png";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,11 +18,6 @@ const Register = () => {
 
   const { signUp } = useAuth();
 
-  const handleGoogle = async () => {
-    await googleSignIn();
-    navigate('/');
-  }
-
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
   };
@@ -37,7 +32,7 @@ const Register = () => {
       });
       navigate("/");
     } catch (error) {
-      console.log(error.code);
+      setError(error.message);
 
       switch (error.code) {
         case "auth/invalid-email":
@@ -179,15 +174,7 @@ const Register = () => {
                     Remember me
                   </label>
                 </div>
-
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
+               
               </div>
 
               <div>
@@ -212,7 +199,7 @@ const Register = () => {
                 >Iniciar sesión</Link>
               </div>
 
-              <div>
+             {/*  <div>
                 <div>
                   <p>or continue with: </p>
                 </div>
@@ -226,7 +213,8 @@ const Register = () => {
                     <BsFacebook />
                   </button>
                 </div>
-              </div>
+              </div> */}
+
             </form>
           </div>
         </div>

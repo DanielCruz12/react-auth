@@ -1,31 +1,36 @@
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
-import Logo from "../assets/img/astar-logo.png";
+import Logo from "../assets/img/logo.png";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const { login, loginWithGoogle } = useAuth(); 
+  const { login, signInWithGoogle, resetPass } = useAuth();
 
   const navigate = useNavigate();
 
   const [error, setError] = useState();
 
-  const handleGoogle = async () => {
-    await loginWithGoogle();
-    navigate('/');
-  }
-
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
   };
+
+  const resetPassword = async () => {
+    if (!user.email) return setError("Porfavor ingresa tu correo");
+    try {
+      await resetPass(user.email); 
+      setError('hemos enviado un link a tu correo para restablecer tu contraseña')
+    } catch (error) {
+      setError(error.message);
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +42,7 @@ const Login = () => {
       });
       navigate("/");
     } catch (error) {
-      console.log(error.code);
+      setError(error.message);
 
       switch (error.code) {
         case "auth/invalid-email":
@@ -60,6 +65,20 @@ const Login = () => {
           setError("Error interno");
           break;
       }
+    }
+  };
+
+  const handleGoogle = async () => {
+    e.preventDefault();
+    setError("");
+    try {
+      await signInWithGoogle();
+      swal("Good job!", "login with google succesfully!", "success", {
+        button: "login!",
+      });
+      navigate("/");
+    } catch (error) {
+      setError(error.message);
     }
   };
 
@@ -185,12 +204,9 @@ const Login = () => {
                 </div>
 
                 <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot your password?
-                  </a>
+                  <button className="font-medium text-indigo-600 hover:text-indigo-500" onClick={resetPassword}>
+                      Forgot your password?
+                  </button>
                 </div>
               </div>
 
@@ -213,25 +229,27 @@ const Login = () => {
                 <Link
                   to="/register"
                   className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >Registrarse</Link>
-              </div>
-
-              <div>
-                <div>
-                  <p>or continue with: </p>
-                </div>
-                <div className="flex justify-center pb-3">
-                  <button className="btn btn primary m-2" onClick={handleGoogle}>
-                    <a className="mx-auto h-12 w-auto">
-                      <FcGoogle />
-                    </a>
-                  </button>
-                  <button className="btn btn primary m-2">
-                    <BsFacebook />
-                  </button>
-                </div>
+                >
+                  Registrarse
+                </Link>
               </div>
             </form>
+
+            <div>
+              <div>
+                <p>or continue with: </p>
+              </div>
+              <div className="flex justify-center pb-3">
+                <button className="btn btn primary m-2" onClick={handleGoogle}>
+                  <a className="mx-auto h-12 w-auto">
+                    <FcGoogle />
+                  </a>
+                </button>
+                <button className="btn btn primary m-2">
+                  <BsFacebook />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
