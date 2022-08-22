@@ -68,7 +68,7 @@ const Login = () => {
     }
   };
 
-  const handleGoogle = async () => {
+  const handleGoogle = async (e) => {
     e.preventDefault();
     setError("");
     try {
