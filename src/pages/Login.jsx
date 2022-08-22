@@ -68,9 +68,7 @@ const Login = () => {
     }
   };
 
-  const handleGoogle = async (e) => {
-    e.preventDefault();
-    setError("");
+  const handleGoogle = async () => {
     try {
       await signInWithGoogle();
       swal("Good job!", "login with google succesfully!", "success", {

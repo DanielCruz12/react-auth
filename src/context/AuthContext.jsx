@@ -31,10 +31,9 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => signOut(auth);
 
-  const provider = new GoogleAuthProvider();
-
   const signInWithGoogle = () => {
-    signInWithPopup(auth, provider);
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
   };
 
   const resetPass = (email) => {
